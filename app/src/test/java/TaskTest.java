@@ -1,6 +1,11 @@
-package com.globant.paulabaudo.testme;
+import com.globant.paulabaudo.testme.Task;
 
-import junit.framework.*;
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,14 +14,14 @@ import java.util.List;
 /**
  * Created by paula.baudo on 8/6/2015.
  */
-public class TaskTest extends TestCase {
+public class TaskTest {
     final static String TEST_TASK_NAME = "Test task";
     final static String TEST_TASK_DONE_STRING = "Test task: Done";
     final static String TEST_TASK_NOT_DONE_STRING = "Test task: Not done";
     final static Integer TEST_TASK_TIME_SPENT = 12;
     final static long CURRENT_DATE = (long) 2548752l;
 
-    public static class TestableTask extends Task{
+    public static class TestableTask extends Task {
         @Override
         protected Date getCurrentDate() {
             return new Date(CURRENT_DATE);
@@ -25,18 +30,19 @@ public class TaskTest extends TestCase {
 
     Task mTask; //sut - System under test
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void init() throws Exception {
         mTask = new Task();
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void destroy() throws Exception {
+        mTask = null;
     }
 
-    public void testDoneStatusIsDisplayedProperly() throws Exception {
+    @Ignore
+    @Test
+    public void doneStatusIsDisplayedProperly() throws Exception {
         // Arrange
         mTask.setName(TEST_TASK_NAME);
         mTask.setDone(true);
@@ -48,14 +54,16 @@ public class TaskTest extends TestCase {
         assertEquals("String must use the format <task name>: Done", taskString, TEST_TASK_DONE_STRING);
     }
 
-    public void testNotDoneStatusIsDisplayedProperly() throws Exception {
+    @Test
+    public void notDoneStatusIsDisplayedProperly() throws Exception {
         mTask.setName(TEST_TASK_NAME);
         mTask.setDone(false);
 
         assertEquals("String must use the format <task name>: Not done", mTask.toString(), TEST_TASK_NOT_DONE_STRING);
     }
 
-    public void testTwentyHoursSpent() throws Exception {
+    @Test
+    public void twentyHoursSpent() throws Exception {
         List<Integer> numbers = new ArrayList<>();
         numbers.add(2);
         numbers.add(3);
@@ -69,7 +77,8 @@ public class TaskTest extends TestCase {
         assertEquals("Time spent must be 12 hours", TEST_TASK_TIME_SPENT, timeSpent);
     }
 
-    public void testDoneDateIsSetToCurrentDateWhenTaskIsDone() throws Exception {
+    @Test
+    public void doneDateIsSetToCurrentDateWhenTaskIsDone() throws Exception {
         TestableTask testableTask = new TestableTask();
         testableTask.setDone(true);
         assertEquals(testableTask.getDoneDate(), new Date(CURRENT_DATE));

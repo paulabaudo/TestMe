@@ -12,6 +12,7 @@ public class Task {
     private Boolean mDone;
     private List<Integer> mTime;
     private Date mDoneDate;
+    private String mDoneBy;
 
     public Task() {
     }
@@ -54,5 +55,13 @@ public class Task {
 
     public void setTime(List<Integer> time) {
         mTime = time;
+    }
+
+    public String getDoneBy() {
+        return mDoneBy;
+    }
+
+    public void setDoneBy(String doneBy) {
+        mDoneBy = doneBy;
     }
 }
