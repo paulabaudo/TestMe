@@ -16,6 +16,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        sourceSets {
+            main {
+                java.srcDirs = ['src/main/java']
+            }
+            test {
+                java.srcDir file('src/test/java/')
+            }
+            androidTest {
+                java.srcDir file('src/androidTest/java/')
+            }
+        }
     }
 }
 
